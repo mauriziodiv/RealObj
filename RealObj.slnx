@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="RealObj/RealObj.vcxproj" Id="5da7b5f6-2253-4102-aba6-9b9182b5896f" />
+</Solution>
