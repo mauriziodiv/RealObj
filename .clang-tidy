@@ -1,0 +1,16 @@
+---
+Checks: >
+  -*,
+  bugprone-*,
+  modernize-use-nullptr,
+  modernize-use-override,
+  modernize-use-default-member-init,
+  modernize-loop-convert,
+  modernize-use-auto,
+  performance-*,
+  readability-braces-around-statements,
+  readability-redundant-declaration,
+  readability-use-anyofallof
+WarningsAsErrors: ''
+HeaderFilterRegex: '.*\.h$'
+FormatStyle: file
