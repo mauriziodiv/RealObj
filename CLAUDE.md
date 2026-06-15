@@ -35,3 +35,15 @@ All translation units must include `pch.h` first. Add new system or third-party 
 ## Dependencies
 
 No external dependencies — pure C++ standard library only.
+
+## Project Structure
+
+Source files are in `RealObj/src/`, headers in `RealObj/headers/`. The built library lands at `x64/Debug/RealObj.lib` (solution root, not project subfolder).
+
+## Test Project
+
+The solution contains a second project `RealObjTest` (console app) for manual testing during development.
+
+- It references `RealObj` via **Add → Reference** so it links automatically and rebuilds in the correct order.
+- Its Additional Include Directories includes `$(SolutionDir)RealObj\headers` (set for All Configurations / All Platforms).
+- `RealObjTest` is set as the Startup Project so **Debug → Start Debugging** runs the test app.

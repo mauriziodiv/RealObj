@@ -4,4 +4,5 @@
     <Platform Name="x86" />
   </Configurations>
   <Project Path="RealObj/RealObj.vcxproj" Id="5da7b5f6-2253-4102-aba6-9b9182b5896f" />
+  <Project Path="RealObjTest/RealObjTest.vcxproj" Id="177954be-646e-4015-bf22-8bc063da0f35" />
 </Solution>
