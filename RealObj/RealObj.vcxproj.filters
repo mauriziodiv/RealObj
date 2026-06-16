@@ -21,12 +21,18 @@
     <ClInclude Include="headers\pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="headers\ObjMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\RealObj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -154,9 +154,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="headers\framework.h" />
+    <ClInclude Include="headers\ObjMesh.h" />
     <ClInclude Include="headers\pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ObjMesh.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
