@@ -1,15 +1,15 @@
 #pragma once
 #include <vector>
 
-struct Vertex
+struct Vector3D
 {
   public:
 
-    Vertex(float x, float y, float z) : x(x), y(y), z(z) {}
+    Vector3D(float x, float y, float z) : x(x), y(y), z(z) {}
     
-    float getX() { return x; };
-    float getY() { return y; };
-    float getZ() { return z; };
+    float getX() const { return x; };
+    float getY() const { return y; };
+    float getZ() const { return z; };
 
    private:
 
@@ -24,13 +24,22 @@ class ObjMesh
 
 		ObjMesh();
 
-        void addVertex(Vertex v);
-        void addIndices(unsigned int a, unsigned int b, unsigned int c);
+        void addVertex(Vector3D v);
+        void addNormal(Vector3D n);
+        void addVertexIndex(unsigned int index);
+        void addNormalIndex(unsigned int index);
 
-        bool reserve(unsigned int vertexCount, unsigned int faceCount);
+        const std::vector<Vector3D>& getVertices() const { return vertices; }
+        const std::vector<Vector3D>& getNormals() const { return normals; }
+        const std::vector<unsigned int>& getVertexIndices() const { return vertexIndices; }
+        const std::vector<unsigned int>& getNormalIndices() const { return normalIndices; }
+
+        bool reserve(unsigned int vertexCount, unsigned int normalCount, unsigned int faceCount);
 
 	private:
         
-        std::vector<Vertex> vertices;
-        std::vector<unsigned int> indices;
+        std::vector<Vector3D> vertices;
+        std::vector<Vector3D> normals;
+        std::vector<unsigned int> vertexIndices;
+        std::vector<unsigned int> normalIndices;
 };

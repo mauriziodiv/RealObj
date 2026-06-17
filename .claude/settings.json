@@ -11,6 +11,17 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "Review this session and save any important context to the project memory directory at C:\\Users\\MaurizioDiVitto\\.claude\\projects\\C--Users-MaurizioDiVitto-source-repos-RealObj\\memory\\. Update MEMORY.md and create or update memory files for: decisions made, plans agreed upon (including full step-by-step implementation plans), user preferences observed, and project state changes. If a plan was discussed or approved this session, save its full detail so it can be resumed in a future session without the user having to repeat it. Only save things that would be useful in a future session. Skip if nothing meaningful happened.",
+            "timeout": 60
+          }
+        ]
+      }
     ]
   }
 }

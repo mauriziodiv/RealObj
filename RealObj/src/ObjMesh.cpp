@@ -5,24 +5,34 @@ ObjMesh::ObjMesh()
 {
 }
 
-void ObjMesh::addVertex(Vertex v)
+void ObjMesh::addVertex(Vector3D v)
 {
     vertices.push_back(v);
 }
 
-void ObjMesh::addIndices(unsigned int a, unsigned int b, unsigned int c)
+void ObjMesh::addNormal(Vector3D n)
 {
-    indices.push_back(a);
-    indices.push_back(b);
-    indices.push_back(c);
+    normals.push_back(n);
 }
 
-bool ObjMesh::reserve(unsigned int vertexCount, unsigned int faceCount)
+void ObjMesh::addVertexIndex(unsigned int index)
+{
+    vertexIndices.push_back(index);
+}
+
+void ObjMesh::addNormalIndex(unsigned int index)
+{
+    normalIndices.push_back(index);
+}
+
+bool ObjMesh::reserve(unsigned int vertexCount, unsigned int normalCount, unsigned int faceCount)
 {
     try
     {
         vertices.reserve(vertexCount);
-        indices.reserve(faceCount * 3);
+        normals.reserve(normalCount);
+        vertexIndices.reserve(faceCount * 3);
+        normalIndices.reserve(faceCount * 3);
     }
     catch (const std::bad_alloc&)
     {

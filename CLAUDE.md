@@ -47,3 +47,7 @@ The solution contains a second project `RealObjTest` (console app) for manual te
 - It references `RealObj` via **Add → Reference** so it links automatically and rebuilds in the correct order.
 - Its Additional Include Directories includes `$(SolutionDir)RealObj\headers` (set for All Configurations / All Platforms).
 - `RealObjTest` is set as the Startup Project so **Debug → Start Debugging** runs the test app.
+
+## Memory
+
+At the end of each session, save key decisions, plans, and context to the persistent memory files at `C:\Users\MaurizioDiVitto\.claude\projects\C--Users-MaurizioDiVitto-source-repos-RealObj\memory\`.
