@@ -9,8 +9,11 @@
 
 // add headers that you want to pre-compile here
 #include "framework.h"
+#include <cmath>
 #include <fstream>
-#include <string>
+#include <iomanip>
+#include <iostream>
 #include <sstream>
+#include <string>
 
 #endif // PCH_H

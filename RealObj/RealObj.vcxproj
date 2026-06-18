@@ -156,6 +156,7 @@
     <ClInclude Include="headers\framework.h" />
     <ClInclude Include="headers\ObjMesh.h" />
     <ClInclude Include="headers\pch.h" />
+    <ClInclude Include="headers\RealObj.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ObjMesh.cpp" />

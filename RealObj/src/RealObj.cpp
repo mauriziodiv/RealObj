@@ -62,6 +62,7 @@ bool loadObj(const char* filename, ObjMesh& objMesh)
         return false;
     }
 
+    objFile.clear();
     objFile.seekg(0);
 
     // Call bool ObjMesh::reserve(unsigned int vertexCount, unsigned int faceCount, unsigned int normalCount) to reserve the memory for the
