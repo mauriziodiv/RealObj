@@ -83,7 +83,7 @@ bool loadObj(const char* filename, ObjMesh& objMesh)
             float x, y, z;
 
             vtx >> prefix >> x >> y >> z;
-            objMesh.addVertex(Vector3D(x, y, z));
+            objMesh.addVertex(Vec3D(x, y, z));
         }
 
         if (line.starts_with("vn "))
@@ -91,7 +91,7 @@ bool loadObj(const char* filename, ObjMesh& objMesh)
             float x, y, z;
 
             vtx >> prefix >> x >> y >> z;
-            objMesh.addNormal(Vector3D(x, y, z));
+            objMesh.addNormal(Vec3D(x, y, z));
         }
 
         if (line.starts_with("f "))

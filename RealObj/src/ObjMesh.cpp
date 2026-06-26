@@ -5,12 +5,12 @@ ObjMesh::ObjMesh()
 {
 }
 
-void ObjMesh::addVertex(Vector3D v)
+void ObjMesh::addVertex(Vec3D v)
 {
     vertices.push_back(v);
 }
 
-void ObjMesh::addNormal(Vector3D n)
+void ObjMesh::addNormal(Vec3D n)
 {
     normals.push_back(n);
 }

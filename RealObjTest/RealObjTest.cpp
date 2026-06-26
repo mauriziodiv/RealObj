@@ -35,12 +35,12 @@ void testVector3D()
 {
     std::cout << "\n--- Group 1: Vector3D ---\n";
 
-    Vector3D v(1.0f, 2.0f, 3.0f);
+    Vec3D v(1.0f, 2.0f, 3.0f);
     CHECK_NEAR(v.getX(), 1.0f, 1e-6f, "getX returns 1.0");
     CHECK_NEAR(v.getY(), 2.0f, 1e-6f, "getY returns 2.0");
     CHECK_NEAR(v.getZ(), 3.0f, 1e-6f, "getZ returns 3.0");
 
-    Vector3D neg(-1.0f, 0.0f, 0.5f);
+    Vec3D neg(-1.0f, 0.0f, 0.5f);
     CHECK_NEAR(neg.getX(), -1.0f, 1e-6f, "getX negative value");
     CHECK_NEAR(neg.getY(), 0.0f, 1e-6f, "getY zero");
     CHECK_NEAR(neg.getZ(), 0.5f, 1e-6f, "getZ fractional value");
@@ -55,9 +55,9 @@ void testObjMeshDirect()
     ObjMesh mesh;
 
     // Vertices
-    mesh.addVertex(Vector3D(0.0f, 1.0f, 0.0f));
-    mesh.addVertex(Vector3D(1.0f, 0.0f, 0.0f));
-    mesh.addVertex(Vector3D(-1.0f, 0.0f, 0.0f));
+    mesh.addVertex(Vec3D(0.0f, 1.0f, 0.0f));
+    mesh.addVertex(Vec3D(1.0f, 0.0f, 0.0f));
+    mesh.addVertex(Vec3D(-1.0f, 0.0f, 0.0f));
 
     CHECK_EQ(mesh.getVertices().size(), 3u, "getVertices size after 3 adds");
     CHECK_NEAR(mesh.getVertices()[0].getY(), 1.0f, 1e-6f, "vertex[0].y == 1.0");
@@ -65,8 +65,8 @@ void testObjMeshDirect()
     CHECK_NEAR(mesh.getVertices()[2].getX(), -1.0f, 1e-6f, "vertex[2].x == -1.0");
 
     // Normals
-    mesh.addNormal(Vector3D(0.0f, 1.0f, 0.0f));
-    mesh.addNormal(Vector3D(0.0f, 0.0f, 1.0f));
+    mesh.addNormal(Vec3D(0.0f, 1.0f, 0.0f));
+    mesh.addNormal(Vec3D(0.0f, 0.0f, 1.0f));
 
     CHECK_EQ(mesh.getNormals().size(), 2u, "getNormals size after 2 adds");
     CHECK_NEAR(mesh.getNormals()[0].getY(), 1.0f, 1e-6f, "normal[0].y == 1.0");
