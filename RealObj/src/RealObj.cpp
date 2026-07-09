@@ -16,13 +16,47 @@ bool openFile(const char* filename, std::ifstream& objFile)
 	return true;
 }
 
-void tokenIndex(std::istringstream& s, std::string& tkn, unsigned int& index, unsigned int& normalIndex)
+void tokenIndex(std::istringstream& s, std::string& tkn, unsigned int& index, unsigned int& textureIndex, unsigned int& normalIndex)
 {
     s >> tkn;
 
-    size_t slash = tkn.find("//");
-    index = std::stoul(tkn.substr(0, slash));
-    normalIndex = std::stoul(tkn.substr(slash + 2));
+    // size_t slash = tkn.find("//");
+    // index = std::stoul(tkn.substr(0, slash));
+    // normalIndex = std::stoul(tkn.substr(slash + 2));
+
+    size_t firstSlash = tkn.find('/');
+    size_t secondSlash = std::string::npos;
+
+    if (firstSlash == std::string::npos)
+    {
+        throw std::invalid_argument("Invalid token format");
+    }
+    else
+    {
+        index = std::stoul(tkn.substr(0, firstSlash));
+
+        secondSlash = tkn.find('/', firstSlash + 1);
+
+        if (secondSlash == std::string::npos)
+        {
+            throw std::invalid_argument("Invalid token format");
+        }
+        else
+        {
+            auto v = tkn.substr(firstSlash + 1, secondSlash - firstSlash - 1);
+
+            if (v.empty())
+            {
+                textureIndex = 0; // No texture index
+            }
+            else
+            {
+                textureIndex = std::stoul(v);
+            }
+
+            normalIndex = std::stoul(tkn.substr(secondSlash + 1));
+        }
+    }
 }
 
 // TODO: This is an example of a library function
@@ -86,6 +120,14 @@ bool loadObj(const char* filename, ObjMesh& objMesh)
             objMesh.addVertex(Vec3D(x, y, z));
         }
 
+        if (line.starts_with("vt "))
+        {
+            float u, v;
+
+            vtx >> prefix >> u >> v;
+            objMesh.addTexture(Vec2D(u, v));
+        }
+
         if (line.starts_with("vn "))
         {
             float x, y, z;
@@ -100,18 +142,21 @@ bool loadObj(const char* filename, ObjMesh& objMesh)
 
             vtx >> prefix;
 
-            unsigned int vertexIndex, normalIndex;
+            unsigned int vertexIndex, textureIndex, normalIndex;
 
-            tokenIndex(vtx, token, vertexIndex, normalIndex);
+            tokenIndex(vtx, token, vertexIndex, textureIndex, normalIndex);
             objMesh.addVertexIndex(vertexIndex);
+            objMesh.addTextureIndex(textureIndex);
             objMesh.addNormalIndex(normalIndex);
 
-            tokenIndex(vtx, token, vertexIndex, normalIndex);
+            tokenIndex(vtx, token, vertexIndex, textureIndex, normalIndex);
             objMesh.addVertexIndex(vertexIndex);
+            objMesh.addTextureIndex(textureIndex);
             objMesh.addNormalIndex(normalIndex);
 
-            tokenIndex(vtx, token, vertexIndex, normalIndex);
+            tokenIndex(vtx, token, vertexIndex, textureIndex, normalIndex);
             objMesh.addVertexIndex(vertexIndex);
+            objMesh.addTextureIndex(textureIndex);
             objMesh.addNormalIndex(normalIndex);
         }
     }
