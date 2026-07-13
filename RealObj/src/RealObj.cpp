@@ -5,6 +5,13 @@
 #include "framework.h"
 #include "ObjMesh.h"
 
+struct FaceCorner
+{
+    unsigned int vertexIndex;
+    unsigned int textureIndex;
+    unsigned int normalIndex;
+};
+
 bool openFile(const char* filename, std::ifstream& objFile)
 {
 	// TODO: Implement file opening logic
@@ -16,47 +23,36 @@ bool openFile(const char* filename, std::ifstream& objFile)
 	return true;
 }
 
-void tokenIndex(std::istringstream& s, std::string& tkn, unsigned int& index, unsigned int& textureIndex, unsigned int& normalIndex)
+void tokenIndex(std::string& tkn, unsigned int& index, unsigned int& textureIndex, unsigned int& normalIndex)
 {
-    s >> tkn;
-
-    // size_t slash = tkn.find("//");
-    // index = std::stoul(tkn.substr(0, slash));
-    // normalIndex = std::stoul(tkn.substr(slash + 2));
-
     size_t firstSlash = tkn.find('/');
-    size_t secondSlash = std::string::npos;
 
-    if (firstSlash == std::string::npos)
-    {
-        throw std::invalid_argument("Invalid token format");
-    }
-    else
-    {
-        index = std::stoul(tkn.substr(0, firstSlash));
+     if (firstSlash == std::string::npos)
+     {
+         throw std::invalid_argument("Invalid token format");
+     }
 
-        secondSlash = tkn.find('/', firstSlash + 1);
+     index = std::stoul(tkn.substr(0, firstSlash));
 
-        if (secondSlash == std::string::npos)
-        {
-            throw std::invalid_argument("Invalid token format");
-        }
-        else
-        {
-            auto v = tkn.substr(firstSlash + 1, secondSlash - firstSlash - 1);
+     size_t secondSlash = tkn.find('/', firstSlash + 1);
 
-            if (v.empty())
-            {
-                textureIndex = 0; // No texture index
-            }
-            else
-            {
-                textureIndex = std::stoul(v);
-            }
+     if (secondSlash == std::string::npos)
+     {
+         throw std::invalid_argument("Invalid token format");
+     }
 
-            normalIndex = std::stoul(tkn.substr(secondSlash + 1));
-        }
-    }
+     auto ti = tkn.substr(firstSlash + 1, secondSlash - firstSlash - 1);
+
+     if (ti.empty())
+     {
+         textureIndex = 0; // No texture index
+     }
+     else
+     {
+         textureIndex = std::stoul(ti);
+     }
+
+     normalIndex = std::stoul(tkn.substr(secondSlash + 1));
 }
 
 // TODO: This is an example of a library function
@@ -142,22 +138,26 @@ bool loadObj(const char* filename, ObjMesh& objMesh)
 
             vtx >> prefix;
 
-            unsigned int vertexIndex, textureIndex, normalIndex;
+            std::vector<FaceCorner> corners;
 
-            tokenIndex(vtx, token, vertexIndex, textureIndex, normalIndex);
-            objMesh.addVertexIndex(vertexIndex);
-            objMesh.addTextureIndex(textureIndex);
-            objMesh.addNormalIndex(normalIndex);
+            while (vtx >> token)
+            {
+                FaceCorner corner;
+                tokenIndex(token, corner.vertexIndex, corner.textureIndex, corner.normalIndex);
+                corners.push_back(corner);
+            }
 
-            tokenIndex(vtx, token, vertexIndex, textureIndex, normalIndex);
-            objMesh.addVertexIndex(vertexIndex);
-            objMesh.addTextureIndex(textureIndex);
-            objMesh.addNormalIndex(normalIndex);
+            for (size_t i = 1; i + 1 < corners.size(); ++i)
+            {
+                const FaceCorner* triangle[3] = {&corners[0], &corners[i], &corners[i + 1]};
 
-            tokenIndex(vtx, token, vertexIndex, textureIndex, normalIndex);
-            objMesh.addVertexIndex(vertexIndex);
-            objMesh.addTextureIndex(textureIndex);
-            objMesh.addNormalIndex(normalIndex);
+                for (const FaceCorner* faceCorner : triangle)
+                {
+                    objMesh.addVertexIndex(faceCorner->vertexIndex);
+                    objMesh.addTextureIndex(faceCorner->textureIndex);
+                    objMesh.addNormalIndex(faceCorner->normalIndex);
+                }
+            }
         }
     }
 
